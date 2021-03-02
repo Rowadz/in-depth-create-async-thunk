@@ -3,7 +3,7 @@ import 'rsuite/dist/styles/rsuite-dark.css'
 import { Container, Header, Sidebar, Content, Panel } from 'rsuite'
 import { useSelector } from 'react-redux'
 import { AppHeader } from './ui/AppHeader'
-import { AppSideNav, selectActiveTab, Dashboard } from './features'
+import { AppSideNav, selectActiveTab, Dashboard, Users } from './features'
 import { SIDE_NAV_TABS } from './app/constants'
 
 const contentStyle = {
@@ -27,6 +27,7 @@ const App = () => {
           <Content style={contentStyle}>
             <Panel header="Content" bordered>
               {selectedTab === SIDE_NAV_TABS.DASHBOARD && <Dashboard />}
+              {selectedTab === SIDE_NAV_TABS.USERS && <Users />}
             </Panel>
           </Content>
         </Container>
