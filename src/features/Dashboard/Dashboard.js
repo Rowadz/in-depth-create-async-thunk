@@ -5,13 +5,18 @@ import { fetchDashboardData } from './dashboardSlice'
 import { selectLoadingStatus } from './selectors'
 import { HTTP_STATUS } from '../../app/constants'
 import DashboardCards from './DashboardCards'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
   const loading = useSelector(selectLoadingStatus)
+  const errorMessage = useSelector((state) => state.dashboard.errorMessage)
 
   useEffect(() => {
-    dispatch(fetchDashboardData())
+    dispatch(fetchDashboardData({ id: 2, name: 'rowadz', age: 80 }))
+      .then(unwrapResult)
+      .then((obj) => console.log({ obj }))
+      .catch((obj) => console.log({ objErr: obj }))
   }, [])
 
   return (
@@ -25,7 +30,7 @@ const Dashboard = () => {
           closable
           type="error"
           title="Error"
-          description="TODO display error message from the rest API"
+          description={errorMessage}
         />
       )}
       {loading === HTTP_STATUS.FULFILLED && (

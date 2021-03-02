@@ -6,7 +6,7 @@ const namespace = 'dashboard'
 
 export const fetchDashboardData = createAsyncThunk(
   `${namespace}/fetchDashboardData`,
-  async () => {
+  async (obj, { dispatch, getState }) => {
     const { data } = await axios.get(`${API_URL}/dashboard`)
     return data
   }
@@ -17,6 +17,7 @@ const dashboardSlice = createSlice({
   initialState: {
     loading: null,
     data: null,
+    errorMessage: null,
   },
   reducers: {},
   extraReducers: {
@@ -27,8 +28,9 @@ const dashboardSlice = createSlice({
       state.loading = HTTP_STATUS.FULFILLED
       state.data = payload
     },
-    [fetchDashboardData.rejected](state) {
+    [fetchDashboardData.rejected](state, { error }) {
       state.loading = HTTP_STATUS.REJECTED
+      state.errorMessage = error.message
     },
   },
 })
