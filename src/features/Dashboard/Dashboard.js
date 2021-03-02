@@ -13,10 +13,16 @@ const Dashboard = () => {
   const errorMessage = useSelector((state) => state.dashboard.errorMessage)
 
   useEffect(() => {
-    dispatch(fetchDashboardData({ id: 2, name: 'rowadz', age: 80 }))
-      .then(unwrapResult)
-      .then((obj) => console.log({ obj }))
-      .catch((obj) => console.log({ objErr: obj }))
+    // dispatch(fetchDashboardData({ id: 2, name: 'rowadz', age: 80 }))
+    //   .then(unwrapResult)
+    //   .then((obj) => console.log({ obj }))
+    //   .catch((obj) => console.log({ objErr: obj }))
+    const promise = dispatch(
+      fetchDashboardData({ id: 2, name: 'rowadz', age: 80 })
+    )
+    return () => {
+      promise.abort()
+    }
   }, [])
 
   return (

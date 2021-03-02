@@ -9,7 +9,17 @@ export const fetchDashboardData = createAsyncThunk(
   async (obj, { dispatch, getState }) => {
     const { data } = await axios.get(`${API_URL}/dashboard`)
     return data
-  }
+  },
+  // {
+  //   condition: (obj, { getState }) => {
+  //     console.log({ objFromCondirtion: obj })
+  //     const { users } = getState()
+  //     if (users.loading === HTTP_STATUS.PENDING) {
+  //       return false
+  //     }
+  //   },
+  //   dispatchConditionRejection: true,
+  // }
 )
 
 const dashboardSlice = createSlice({
