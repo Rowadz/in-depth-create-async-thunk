@@ -3,8 +3,8 @@ import 'rsuite/dist/styles/rsuite-dark.css'
 import { Container, Header, Sidebar, Content, Panel } from 'rsuite'
 import { useSelector } from 'react-redux'
 import { AppHeader } from './ui/AppHeader'
-import { AppSideNav, selectActiveTab } from './features'
-// import { SIDE_NAV_TABS } from './app/constants'
+import { AppSideNav, selectActiveTab, Dashboard } from './features'
+import { SIDE_NAV_TABS } from './app/constants'
 
 const contentStyle = {
   padding: 20,
@@ -26,7 +26,7 @@ const App = () => {
           </Sidebar>
           <Content style={contentStyle}>
             <Panel header="Content" bordered>
-              TODO create a component for each tab
+              {selectedTab === SIDE_NAV_TABS.DASHBOARD && <Dashboard />}
             </Panel>
           </Content>
         </Container>
