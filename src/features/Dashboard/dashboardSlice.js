@@ -1,15 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, HTTP_STATUS } from '../../app/constants'
-import axios from 'axios'
+import axios, { CancelToken } from 'axios'
 
 const namespace = 'dashboard'
 
 export const fetchDashboardData = createAsyncThunk(
   `${namespace}/fetchDashboardData`,
-  async (obj, { dispatch, getState }) => {
-    const { data } = await axios.get(`${API_URL}/dashboard`)
+  async (obj, { dispatch, getState, signal }) => {
+    const source = CancelToken.source()
+
+    /** A signal object that allows you to communicate with a DOM request
+     * (such as a Fetch) and abort it if required via an AbortController object. */
+    signal.addEventListener('abort', () => {
+      source.cancel()
+    })
+
+    const { data } = await axios.get(`${API_URL}/dashboard`, {
+      cancelToken: source.token,
+    })
+    // const data = await fetch(`${API_URL}/dashboard`, { signal }).then((r) =>
+    //   r.json()
+    // )
     return data
-  },
+  }
   // {
   //   condition: (obj, { getState }) => {
   //     console.log({ objFromCondirtion: obj })
