@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { API_URL, HTTP_STATUS } from '../../app/constants'
-import axios, { CancelToken } from 'axios'
+import axios from 'axios'
 
 const namespace = 'dashboard'
 
 export const fetchDashboardData = createAsyncThunk(
   `${namespace}/fetchDashboardData`,
   async (obj, { dispatch, getState, signal }) => {
-    const source = CancelToken.source()
+    const source = axios.CancelToken.source()
 
     /** A signal object that allows you to communicate with a DOM request
      * (such as a Fetch) and abort it if required via an AbortController object. */

@@ -7,3 +7,4 @@ and it runs using [json-server](https://github.com/typicode/json-server), please
 - npm install or npm i
 - npm run dev
 - now look at the terminal
+- npm run dev -- --delay 6000
